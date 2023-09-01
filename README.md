@@ -5,7 +5,7 @@
 ## not completed yet
 # how to run the app
 ### to get started you need to install kafka server and launch the following commands :
-## backend
+## backend (https://github.com/IMDADMI/kafka-websocket-chatApp-backend)
 * .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties : to start zookeeper 
 * .\bin\windows\kafka-server-start.bat .\config\server.properties : to start the kafka server
 * create a database named (view in the properties file of the backend part (kafka-websocket-chatApp-backend))
