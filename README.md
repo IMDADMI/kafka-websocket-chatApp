@@ -8,7 +8,7 @@
 ## backend
 * .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties : to start zookeeper 
 * .\bin\windows\kafka-server-start.bat .\config\server.properties : to start the kafka server
-* create a database named (view in the properties file of the backend part)
+* create a database named (view in the properties file of the backend part (kafka-websocket-chatApp-backend))
 ## front end
 * npm i : to install the packages
 * npm run dev to start the application
