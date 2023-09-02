@@ -3,7 +3,7 @@
 ### react js and mui for the front end 
 ### spring boot for the backend
  - ## Home Screen
-  ![click me](https://github.com/IMDADMI/inventory-management-system/blob/2-home-part/src/assets/Home.PNG?raw=true)
+  ![click me](https://github.com/IMDADMI/kafka-websocket-chatApp/blob/master/src/assets/home.PNG?raw=true)
 # how to run the app
 ### to get started you need to install kafka server and launch the following commands :
 ## backend (https://github.com/IMDADMI/kafka-websocket-chatApp-backend)
