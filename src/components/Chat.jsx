@@ -1,47 +1,41 @@
 import { Box, Button, Input, TextField, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { messages } from "./messagesList";
 import { connect, sendMessage, disconnect } from "./WebSocketClient";
 import Messages from "./Messages";
+import { request } from "./databaseHelper";
 export default function Chat() {
-  var user = "hello";
+  /**
+   * note that the errors are not handled such as wrong username or the receiver
+   */
+
   const [allMessages, setAllMessages] = useState([]);
   const [username, setUsername] = useState("");
   const [uservalue, setUservalue] = useState("");
   const [message, setMessage] = useState("");
   const [toValue, setToValue] = useState("");
+  const [receiver, setReciever] = useState("");
+  const messageBox = useRef(null);
   // console.log(username);
   const callback = (message) => {
     const msg = JSON.parse(message);
-    console.log("the received messages is  : ", msg);
-    console.log("the messages are : ", allMessages);
-    console.log(user);
     // if (msg.fromContact === username) {
-    console.log(msg.fromContact);
-    console.log(username);
-    // console.log("noice");
     setAllMessages((prevState) => [...prevState, msg]);
     // }
   };
 
   useEffect(() => {
-    // console.log("use effect get called");
-    const sorted = messages.sort((m1, m2) => {
-      if (m1.sendTime > m2.sendTime) return 1;
-      else if (m1.sendTime < m2.sendTime) return -1;
-      else return 0;
-    });
-
     connect(callback);
-
-    setAllMessages(sorted);
     return () => {
       disconnect();
     };
   }, []);
-
+  useEffect(() => {
+    const box = messageBox.current;
+    box.scrollTop = box.scrollHeight;
+    return () => {};
+  }, [allMessages]);
   const sendMessageToSocket = () => {
-    user = "mf hello";
     const msg = {
       fromContact: username,
       messageContent: message,
@@ -56,9 +50,19 @@ export default function Chat() {
     sendMessage(msg);
     setMessage("");
   };
-  const setUser = (event) => {
+  const setUser = async (event) => {
     event.preventDefault();
     setUsername(uservalue);
+    setReciever(toValue);
+    const msgData = await request(
+      "POST",
+      "http://localhost:8080/api/v1/messages/conversation",
+      { fromContact: uservalue, toContact: toValue }
+    );
+    const oldMessages = msgData.data;
+    setAllMessages(oldMessages);
+    setUservalue("");
+    setToValue("");
   };
 
   return (
@@ -93,10 +97,12 @@ export default function Chat() {
         </Box>
       </form>
       <Box
+        ref={messageBox}
         width="100%"
-        height={600}
+        height={700}
         sx={{
           border: "1px solid black",
+          overflow: "auto",
         }}
       >
         {username !== "" && (
