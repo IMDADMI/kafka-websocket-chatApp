@@ -2,7 +2,8 @@
 ### this application basically use websocket to make a realtime messaging system and kafka for dealing with large amount of users and services 
 ### react js and mui for the front end 
 ### spring boot for the backend
-## not completed yet
+ - ## Home Screen
+  ![click me](https://github.com/IMDADMI/inventory-management-system/blob/2-home-part/src/assets/Home.PNG?raw=true)
 # how to run the app
 ### to get started you need to install kafka server and launch the following commands :
 ## backend (https://github.com/IMDADMI/kafka-websocket-chatApp-backend)
